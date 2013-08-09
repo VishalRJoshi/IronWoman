@@ -1,0 +1,54 @@
+c:\users\vijoshi\documents\visual studio 2012\Projects\IronWomen\IronWomen\bin\Debug\IronWomen.exe
+c:\users\vijoshi\documents\visual studio 2012\Projects\IronWomen\IronWomen\bin\Debug\IronWomen.pdb
+c:\users\vijoshi\documents\visual studio 2012\Projects\IronWomen\IronWomen\bin\Debug\resources.pri
+c:\users\vijoshi\documents\visual studio 2012\Projects\IronWomen\IronWomen\bin\Debug\AppxManifest.xml
+c:\users\vijoshi\documents\visual studio 2012\Projects\IronWomen\IronWomen\bin\Debug\IronWomen.build.appxrecipe
+c:\users\vijoshi\documents\visual studio 2012\Projects\IronWomen\IronWomen\obj\Debug\App.g.i.cs
+c:\users\vijoshi\documents\visual studio 2012\Projects\IronWomen\IronWomen\obj\Debug\App.g.cs
+c:\users\vijoshi\documents\visual studio 2012\Projects\IronWomen\IronWomen\obj\Debug\Common\StandardStyles.g.i.cs
+c:\users\vijoshi\documents\visual studio 2012\Projects\IronWomen\IronWomen\obj\Debug\Common\StandardStyles.g.cs
+c:\users\vijoshi\documents\visual studio 2012\Projects\IronWomen\IronWomen\obj\Debug\MainPage.g.i.cs
+c:\users\vijoshi\documents\visual studio 2012\Projects\IronWomen\IronWomen\obj\Debug\MainPage.g.cs
+c:\users\vijoshi\documents\visual studio 2012\Projects\IronWomen\IronWomen\obj\Debug\XamlTypeInfo.g.cs
+c:\users\vijoshi\documents\visual studio 2012\Projects\IronWomen\IronWomen\obj\Debug\App.xaml
+c:\users\vijoshi\documents\visual studio 2012\Projects\IronWomen\IronWomen\obj\Debug\Common\StandardStyles.xaml
+c:\users\vijoshi\documents\visual studio 2012\Projects\IronWomen\IronWomen\obj\Debug\MainPage.xaml
+c:\users\vijoshi\documents\visual studio 2012\Projects\IronWomen\IronWomen\obj\Debug\IronWomen.exe
+c:\users\vijoshi\documents\visual studio 2012\Projects\IronWomen\IronWomen\obj\Debug\IronWomen.pdb
+c:\users\vijoshi\documents\visual studio 2012\Projects\IronWomen\IronWomen\obj\Debug\priconfig.xml.intermediate
+c:\users\vijoshi\documents\visual studio 2012\Projects\IronWomen\IronWomen\obj\Debug\layout.resfiles.intermediate
+c:\users\vijoshi\documents\visual studio 2012\Projects\IronWomen\IronWomen\obj\Debug\resources.resfiles.intermediate
+c:\users\vijoshi\documents\visual studio 2012\Projects\IronWomen\IronWomen\obj\Debug\pri.resfiles.intermediate
+c:\users\vijoshi\documents\visual studio 2012\Projects\IronWomen\IronWomen\obj\Debug\priconfig.xml
+c:\users\vijoshi\documents\visual studio 2012\Projects\IronWomen\IronWomen\obj\Debug\layout.resfiles
+c:\users\vijoshi\documents\visual studio 2012\Projects\IronWomen\IronWomen\obj\Debug\resources.resfiles
+c:\users\vijoshi\documents\visual studio 2012\Projects\IronWomen\IronWomen\obj\Debug\pri.resfiles
+c:\users\vijoshi\documents\visual studio 2012\Projects\IronWomen\IronWomen\obj\Debug\LanguageQualifiers.txt
+c:\users\vijoshi\documents\visual studio 2012\Projects\IronWomen\IronWomen\obj\Debug\ProjectArchitectures.txt
+C:\Vishal\Projects\IronWoman\IronWomen\IronWomen\bin\Debug\IronWomen.exe
+C:\Vishal\Projects\IronWoman\IronWomen\IronWomen\bin\Debug\IronWomen.pdb
+C:\Vishal\Projects\IronWoman\IronWomen\IronWomen\bin\Debug\resources.pri
+C:\Vishal\Projects\IronWoman\IronWomen\IronWomen\bin\Debug\AppxManifest.xml
+C:\Vishal\Projects\IronWoman\IronWomen\IronWomen\bin\Debug\IronWomen.build.appxrecipe
+C:\Vishal\Projects\IronWoman\IronWomen\IronWomen\obj\Debug\App.g.i.cs
+C:\Vishal\Projects\IronWoman\IronWomen\IronWomen\obj\Debug\App.g.cs
+C:\Vishal\Projects\IronWoman\IronWomen\IronWomen\obj\Debug\Common\StandardStyles.g.i.cs
+C:\Vishal\Projects\IronWoman\IronWomen\IronWomen\obj\Debug\Common\StandardStyles.g.cs
+C:\Vishal\Projects\IronWoman\IronWomen\IronWomen\obj\Debug\MainPage.g.i.cs
+C:\Vishal\Projects\IronWoman\IronWomen\IronWomen\obj\Debug\MainPage.g.cs
+C:\Vishal\Projects\IronWoman\IronWomen\IronWomen\obj\Debug\XamlTypeInfo.g.cs
+C:\Vishal\Projects\IronWoman\IronWomen\IronWomen\obj\Debug\App.xaml
+C:\Vishal\Projects\IronWoman\IronWomen\IronWomen\obj\Debug\Common\StandardStyles.xaml
+C:\Vishal\Projects\IronWoman\IronWomen\IronWomen\obj\Debug\MainPage.xaml
+C:\Vishal\Projects\IronWoman\IronWomen\IronWomen\obj\Debug\IronWomen.exe
+C:\Vishal\Projects\IronWoman\IronWomen\IronWomen\obj\Debug\IronWomen.pdb
+C:\Vishal\Projects\IronWoman\IronWomen\IronWomen\obj\Debug\priconfig.xml.intermediate
+C:\Vishal\Projects\IronWoman\IronWomen\IronWomen\obj\Debug\layout.resfiles.intermediate
+C:\Vishal\Projects\IronWoman\IronWomen\IronWomen\obj\Debug\resources.resfiles.intermediate
+C:\Vishal\Projects\IronWoman\IronWomen\IronWomen\obj\Debug\pri.resfiles.intermediate
+C:\Vishal\Projects\IronWoman\IronWomen\IronWomen\obj\Debug\priconfig.xml
+C:\Vishal\Projects\IronWoman\IronWomen\IronWomen\obj\Debug\layout.resfiles
+C:\Vishal\Projects\IronWoman\IronWomen\IronWomen\obj\Debug\resources.resfiles
+C:\Vishal\Projects\IronWoman\IronWomen\IronWomen\obj\Debug\pri.resfiles
+C:\Vishal\Projects\IronWoman\IronWomen\IronWomen\obj\Debug\LanguageQualifiers.txt
+C:\Vishal\Projects\IronWoman\IronWomen\IronWomen\obj\Debug\ProjectArchitectures.txt
