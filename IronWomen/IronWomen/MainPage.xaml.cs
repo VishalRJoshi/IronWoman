@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Microsoft.WindowsAzure.MobileServices;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -24,6 +27,7 @@ namespace IronWomen
         public MainPage()
         {
             this.InitializeComponent();
+            this.InitializeUsers();
         }
 
         /// <summary>
@@ -46,15 +50,137 @@ namespace IronWomen
         int totalDollars;
         int totalRupees;
 
+        private MobileServiceCollection<IronUsers, IronUsers> ironUsersCollection;
+        private IMobileServiceTable<IronUsers> ironUsersTable = App.MobileService.GetTable<IronUsers>();
 
+        public class IronUsers
+        {
+            public int Id { get; set; }
+
+            [JsonProperty(PropertyName = "Name")]
+            public string Name { get; set; }
+
+            [JsonProperty(PropertyName = "Count")]
+            public int Count { get; set; }
+        }
+        
 
         private enum Operation
         {
             plus, minus, none
         };
+        
+        private async void InitializeUsers()
+        {
+            MobileServiceInvalidOperationException exception = null;
+            try
+            {
+                ironUsersCollection = await ironUsersTable.ToCollectionAsync();
+
+                if (ironUsersCollection.Count <= 0)
+                {
+                    this.InsertTodoItem("vishal");
+                    this.InsertTodoItem("kedar");
+                    this.InsertTodoItem("abhijit");
+                    this.InsertTodoItem("krittika");
+                    this.InsertTodoItem("satyakamal");
+                    this.InsertTodoItem("rajkamal");
+                    this.InsertTodoItem("swati");
+                    this.InsertTodoItem("nila");
+                }
+                else
+                {
+                    foreach (IronUsers ironUsers in ironUsersCollection)
+                    {
+                        switch (ironUsers.Name.ToLower())
+                        {
+                            case "vishal":
+                                vishalCount = ironUsers.Count;
+                                break;
+                            case "kedar":
+                                kedarCount = ironUsers.Count;
+                                break;
+                            case "abhijit":
+                                abhijitCount = ironUsers.Count;
+                                break;
+                            case "krittika":
+                                krittikaCount = ironUsers.Count;
+                                break;
+                            case "satyakamal":
+                                satyakamalCount = ironUsers.Count;
+                                break;
+                            case "swati":
+                                swatiCount = ironUsers.Count;
+                                break;
+                            case "rajkamal":
+                                rajkamalCount = ironUsers.Count;
+                                break;
+                            case "nila":
+                                nilaCount = ironUsers.Count;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+
+                    UpdateTotalDollars();
+                }
+            }
+            catch (MobileServiceInvalidOperationException e)
+            {
+                exception = e;                
+            }
+        }
+
+        private async void InsertTodoItem(string name)
+        {
+            IronUsers ironUser = new IronUsers()
+            {
+                Name = name,
+                Count = 0
+            };
+            await ironUsersTable.InsertAsync(ironUser);            
+        }
+
+        private async Task<IronUsers> GetCurrentCount(string name)
+        {
+            MobileServiceInvalidOperationException exception = null;
+            try
+            {
+                ironUsersCollection = await ironUsersTable.Where(iu => iu.Name.ToLower() == name.ToLower())
+                        .ToCollectionAsync();
+
+                if (ironUsersCollection.Count <= 0)
+                {
+                    return null;
+                }
+
+                return ironUsersCollection[0];                
+            }
+            catch (MobileServiceInvalidOperationException e)
+            {
+                exception = e;
+                
+                return null;
+            }
+        }
+
+        private async void UpdateCount(IronUsers ironUser)
+        {
+            await ironUsersTable.UpdateAsync(ironUser);
+        }
 
         private void UpdateTotalDollars()
         {
+            VishalCount.Text = FormatNumberString(vishalCount);
+            KedarCount.Text = FormatNumberString(kedarCount);
+            AbhijitCount.Text = FormatNumberString(abhijitCount);
+            KrittikaCount.Text = FormatNumberString(krittikaCount);
+            RajkamalCount.Text = FormatNumberString(rajkamalCount);
+            SatyakamalCount.Text = FormatNumberString(satyakamalCount);
+            SwatiCount.Text = FormatNumberString(swatiCount);
+            NilaCount.Text = FormatNumberString(nilaCount);
+
             totalDollars = vishalCount + kedarCount + krittikaCount + abhijitCount + rajkamalCount + satyakamalCount + swatiCount + nilaCount;
             TotalDollar.Text = FormatNumberString(totalDollars);
             UpdateTotalRupees();
@@ -66,12 +192,15 @@ namespace IronWomen
             TotalRupees.Text = FormatNumberString(totalRupees);
         }
 
-        private static int GetUpdatedCount(string numString, Operation operate)
+        private async Task<int> GetUpdatedCount(string name, Operation operate)
         {
             int number;
+            
+            IronUsers ironUser = null;
             try
             {
-                number = Convert.ToInt32(numString);
+                ironUser = await GetCurrentCount(name);                
+                number = ironUser.Count;
             }
             catch
             {
@@ -91,7 +220,12 @@ namespace IronWomen
                     break;
             }
             if (number < 0)
+            {
                 return 0;
+            }
+
+            ironUser.Count = number;
+            UpdateCount(ironUser);
             return number;
         }
 
@@ -109,123 +243,123 @@ namespace IronWomen
             return displayNumber;
         }
 
-        private void VishalPlusClicked(object sender, RoutedEventArgs e)
+        private async void VishalPlusClicked(object sender, RoutedEventArgs e)
         {
-            vishalCount = GetUpdatedCount(VishalCount.Text, Operation.plus);
+            vishalCount = await GetUpdatedCount("vishal", Operation.plus);
             VishalCount.Text = FormatNumberString(vishalCount);
             UpdateTotalDollars();
         }
 
-        private void KedarPlusClicked(object sender, RoutedEventArgs e)
+        private async void KedarPlusClicked(object sender, RoutedEventArgs e)
         {
-            kedarCount = GetUpdatedCount(KedarCount.Text, Operation.plus);
+            kedarCount = await GetUpdatedCount("kedar", Operation.plus);
             KedarCount.Text = FormatNumberString(kedarCount);
             UpdateTotalDollars();
         }
 
-        private void KrittikaPlusClicked(object sender, RoutedEventArgs e)
-        {
-            krittikaCount = GetUpdatedCount(KrittikaCount.Text, Operation.plus);
+        private async void KrittikaPlusClicked(object sender, RoutedEventArgs e)
+        {            
+            krittikaCount = await GetUpdatedCount("krittika", Operation.plus);
             KrittikaCount.Text = FormatNumberString(krittikaCount);
             UpdateTotalDollars();
         }
 
-        private void AbhijitPlusClicked(object sender, RoutedEventArgs e)
+        private async void AbhijitPlusClicked(object sender, RoutedEventArgs e)
         {
-            abhijitCount = GetUpdatedCount(AbhijitCount.Text, Operation.plus);
+            abhijitCount = await GetUpdatedCount("abhijit", Operation.plus);
             AbhijitCount.Text = FormatNumberString(abhijitCount);
             UpdateTotalDollars();
         }
 
-        private void RajkamalPlusClicked(object sender, RoutedEventArgs e)
+        private async void RajkamalPlusClicked(object sender, RoutedEventArgs e)
         {
-            rajkamalCount = GetUpdatedCount(RajkamalCount.Text, Operation.plus);
+            rajkamalCount = await GetUpdatedCount("rajkamal", Operation.plus);
             RajkamalCount.Text = FormatNumberString(rajkamalCount);
                 UpdateTotalDollars();
         }
 
-        private void SatyakamalPlusClicked(object sender, RoutedEventArgs e)
+        private async void SatyakamalPlusClicked(object sender, RoutedEventArgs e)
         {
-            satyakamalCount = GetUpdatedCount(SatyakamalCount.Text, Operation.plus);
+            satyakamalCount = await GetUpdatedCount("satyakamal", Operation.plus);
             SatyakamalCount.Text = FormatNumberString(satyakamalCount);
                 UpdateTotalDollars();
         }
 
-        private void SwatiPlusClicked(object sender, RoutedEventArgs e)
+        private async void SwatiPlusClicked(object sender, RoutedEventArgs e)
         {
-            swatiCount = GetUpdatedCount(SwatiCount.Text, Operation.plus);
+            swatiCount = await GetUpdatedCount("swati", Operation.plus);
             SwatiCount.Text = FormatNumberString(swatiCount);
                 UpdateTotalDollars();
         }
 
-        private void NilaPlusClicked(object sender, RoutedEventArgs e)
+        private async void NilaPlusClicked(object sender, RoutedEventArgs e)
         {
-            nilaCount = GetUpdatedCount(NilaCount.Text, Operation.plus);
+            nilaCount = await GetUpdatedCount("nila", Operation.plus);
             NilaCount.Text = FormatNumberString(nilaCount);
                 UpdateTotalDollars();
         }
 
-        private void VishalMinusClicked(object sender, RoutedEventArgs e)
+        private async void VishalMinusClicked(object sender, RoutedEventArgs e)
         {
-            vishalCount = GetUpdatedCount(VishalCount.Text, Operation.minus);
+            vishalCount = await GetUpdatedCount("vishal", Operation.minus);
             VishalCount.Text = FormatNumberString(vishalCount);
-            if (vishalCount > 0)
+            if (vishalCount >= 0)
                 UpdateTotalDollars();
         }
 
-        private void KedarMinusClicked(object sender, RoutedEventArgs e)
+        private async void KedarMinusClicked(object sender, RoutedEventArgs e)
         {
-            kedarCount = GetUpdatedCount(KedarCount.Text, Operation.minus);
+            kedarCount = await GetUpdatedCount("kedar", Operation.minus);
             KedarCount.Text = FormatNumberString(kedarCount);
-            if (kedarCount > 0)
+            if (kedarCount >= 0)
                 UpdateTotalDollars();
         }
 
-        private void KrittikaMinusClicked(object sender, RoutedEventArgs e)
+        private async void KrittikaMinusClicked(object sender, RoutedEventArgs e)
         {
-            krittikaCount = GetUpdatedCount(KrittikaCount.Text, Operation.minus);
+            krittikaCount = await GetUpdatedCount("krittika", Operation.minus);
             KrittikaCount.Text = FormatNumberString(krittikaCount);
-            if (krittikaCount > 0)
+            if (krittikaCount >= 0)
                 UpdateTotalDollars();
         }
 
-        private void AbhijitMinusClicked(object sender, RoutedEventArgs e)
+        private async void AbhijitMinusClicked(object sender, RoutedEventArgs e)
         {
-            abhijitCount = GetUpdatedCount(AbhijitCount.Text, Operation.minus);
+            abhijitCount = await GetUpdatedCount("abhijit", Operation.minus);
             AbhijitCount.Text = FormatNumberString(abhijitCount);
-            if (abhijitCount > 0)
+            if (abhijitCount >= 0)
                 UpdateTotalDollars();
         }
 
-        private void RajkamalMinusClicked(object sender, RoutedEventArgs e)
+        private async void RajkamalMinusClicked(object sender, RoutedEventArgs e)
         {
-            rajkamalCount = GetUpdatedCount(RajkamalCount.Text, Operation.minus);
+            rajkamalCount = await GetUpdatedCount("rajkamal", Operation.minus);
             RajkamalCount.Text = FormatNumberString(rajkamalCount);
-            if (rajkamalCount > 0)
+            if (rajkamalCount >= 0)
                 UpdateTotalDollars();
         }
 
-        private void SatyakamalMinusClicked(object sender, RoutedEventArgs e)
+        private async void SatyakamalMinusClicked(object sender, RoutedEventArgs e)
         {
-            satyakamalCount = GetUpdatedCount(SatyakamalCount.Text, Operation.minus);
+            satyakamalCount = await GetUpdatedCount("satyakamal", Operation.minus);
             SatyakamalCount.Text = FormatNumberString(satyakamalCount);
-            if (satyakamalCount > 0)
+            if (satyakamalCount >= 0)
                 UpdateTotalDollars();
         }
 
-        private void SwatiMinusClicked(object sender, RoutedEventArgs e)
+        private async void SwatiMinusClicked(object sender, RoutedEventArgs e)
         {
-            swatiCount = GetUpdatedCount(SwatiCount.Text, Operation.minus);
+            swatiCount = await GetUpdatedCount("swati", Operation.minus);
             SwatiCount.Text = FormatNumberString(swatiCount);
-            if (swatiCount > 0)
+            if (swatiCount >= 0)
                 UpdateTotalDollars();
         }
 
-        private void NilaMinusClicked(object sender, RoutedEventArgs e)
+        private async void NilaMinusClicked(object sender, RoutedEventArgs e)
         {
-            nilaCount = GetUpdatedCount(NilaCount.Text, Operation.minus);
+            nilaCount = await GetUpdatedCount("nila", Operation.minus);
             NilaCount.Text = FormatNumberString(nilaCount);
-            if (nilaCount > 0)
+            if (nilaCount >= 0)
                 UpdateTotalDollars();
         }
 

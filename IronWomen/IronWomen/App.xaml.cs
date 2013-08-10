@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.WindowsAzure.MobileServices;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
 
@@ -32,6 +33,11 @@ namespace IronWomen
             this.InitializeComponent();
             this.Suspending += OnSuspending;
         }
+
+        public static MobileServiceClient MobileService = new MobileServiceClient(
+                                                        "https://ironwoman.azure-mobile.net/",
+                                                        "vrGifnNVHyMgHawsfoRWQBRJcBsvVA75"
+                                                    );
 
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
